@@ -8,7 +8,7 @@ import shutil
 import tempfile
 import uuid
 
-from concorde._concorde import _CCutil_gettsplib, _CCtsp_solve_dat, _CCutil_tri2dat
+from concorde._concorde import _CCutil_gettsplib, _CCtsp_solve_dat
 from concorde.util import write_tsp_file, EDGE_WEIGHT_TYPES
 
 ComputedTour = namedtuple(
@@ -44,7 +44,7 @@ class TSPSolver(object):
             )
         self = cls()
         self._ncount = shape
-        self._data = _CCutil_tri2dat(shape, np.ascontiguousarray(edges))
+        # self._data = _CCutil_tri2dat(shape, np.ascontiguousarray(edges))
         return self
 
     @classmethod

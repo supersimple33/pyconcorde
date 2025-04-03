@@ -85,19 +85,19 @@ def _CCutil_gettsplib(str fname):
     else:
         return -1, None
 
-def _CCutil_tri2dat(int ncount, int[::1] elen):
-    cdef int retval
-    cdef _CCdatagroup dat
+# def _CCutil_tri2dat(int ncount, int[::1] elen):
+#     cdef int retval
+#     cdef _CCdatagroup dat
 
-    dat = _CCdatagroup()
+#     dat = _CCdatagroup()
 
-    retval = CCutil_tri2dat(ncount, &elen[0], &dat.c_data)
-    if retval == 0:
-        dat.initialized = True
-        assert dat.ncount == ncount
-        return ncount, dat
-    else:
-        return -1, None
+#     retval = CCutil_tri2dat(ncount, &elen[0], &dat.c_data)
+#     if retval == 0:
+#         dat.initialized = True
+#         assert dat.ncount == ncount
+#         return ncount, dat
+#     else:
+#         return -1, None
     
 
 def _CCtsp_solve_dat(
