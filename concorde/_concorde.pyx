@@ -11,6 +11,7 @@ cdef extern from "concorde.h":
         double *x
         double *y
         double *z
+        int **adj
 
     struct CCrandstate:
         pass
@@ -69,6 +70,15 @@ cdef class _CCdatagroup:
             return np.asarray(z_data)
         else:
             return np.array([])
+
+    @property
+    def adj(self):
+        cdef int[:, :] adj_data
+        if self.initialized:
+            adj_data = <int[:, :]>(self.c_data.adj)
+            return np.asarray(adj_data)
+        else:
+            return np.array([[]], dtype=np.int32)
 
 
 def _CCutil_gettsplib(str fname):
