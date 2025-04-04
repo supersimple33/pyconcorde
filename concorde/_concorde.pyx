@@ -74,11 +74,14 @@ cdef class _CCdatagroup:
     @property
     def adj(self):
         cdef int[:, :] adj_data
-        if self.initialized:
-            adj_data = <int[:self.ncount, :self.ncount]>(self.c_data.adj)
+        if self.initialized and self.c_data.adj != NULL:
+            adj_data = np.zeros((self.ncount, self.ncount), dtype=np.int32)
+            for i in range(self.ncount):
+                adj_data[i, :] = <int[:self.ncount]>self.c_data.adj[i]
             return np.asarray(adj_data)
         else:
             return np.array([[]], dtype=np.int32)
+
 
 
 def _CCutil_gettsplib(str fname):
