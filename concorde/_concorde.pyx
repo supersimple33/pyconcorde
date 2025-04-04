@@ -71,6 +71,18 @@ cdef class _CCdatagroup:
         else:
             return np.array([])
 
+    """
+    for (i=0, j=0; i<ncount; i++) {
+        dat->adj[i] = dat->adjspace + j;
+        j += (i+1);
+    }
+    for (i=0, k=0; i<ncount; i++) {
+        for (j=0; j<i; j++) {
+            dat->adj[i][j] = defaultlen;
+        }
+        dat->adj[i][i] = 0;
+    }
+    """
     @property
     def adj(self):
         cdef int[:, :] adj_data
@@ -78,7 +90,12 @@ cdef class _CCdatagroup:
             adj_data = np.zeros((self.ncount, self.ncount), dtype=np.int32)
             for i in range(self.ncount):
                 for j in range(self.ncount):
-                    adj_data[i, j] = self.c_data.adj[i][j]
+                    if i > j:
+                        adj_data[i, j] = self.c_data.adj[i][j]
+                    elif i < j:
+                        adj_data[i, j] = self.c_data.adj[j][i]
+                    else:
+                        adj_data[i, j] = 0
             return np.asarray(adj_data)
         else:
             return np.array([[]], dtype=np.int32)
