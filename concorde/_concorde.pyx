@@ -73,7 +73,6 @@ cdef class _CCdatagroup:
 
     @property
     def adj(self):
-        cdef int[:, :] adj_data
         rows = tuple(<int[:self.ncount]>self.c_data.adj[i] for i in range(self.ncount))
         cdef const int[:, :] adj_data = rows
         if self.initialized:
