@@ -75,7 +75,7 @@ cdef class _CCdatagroup:
     def adj(self):
         cdef int[:, :] adj_data
         if self.initialized:
-            adj_data = <int[:, :]>(self.c_data.adj)
+            adj_data = <int[:self.ncount, :self.ncount]>(self.c_data.adj)
             return np.asarray(adj_data)
         else:
             return np.array([[]], dtype=np.int32)
