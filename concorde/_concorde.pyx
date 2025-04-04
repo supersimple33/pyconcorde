@@ -73,12 +73,15 @@ cdef class _CCdatagroup:
 
     @property
     def adj(self):
-        cdef int rows[self.ncount][self.ncount] = tuple(<int[:self.ncount]>self.c_data.adj[i] for i in range(self.ncount))
-        cdef const int[:, :] adj_data = rows
-        if self.initialized:
+        cdef int[:, :] adj_data
+        if self.initialized and self.c_data.adj != NULL:
+            adj_data = np.zeros((self.ncount, self.ncount), dtype=np.int32)
+            for i in range(self.ncount):
+                for j in range(self.ncount):
+                    adj_data[i, j] = self.c_data.adj[i][j]
             return np.asarray(adj_data)
         else:
-            return np.array([])
+            return np.array([[]], dtype=np.int32)
         
 
 
