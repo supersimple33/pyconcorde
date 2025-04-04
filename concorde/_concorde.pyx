@@ -94,8 +94,7 @@ def _CCutil_tri2dat(int ncount, int[::1] elen):
     retval = CCutil_tri2dat(ncount, &elen[0], &dat.c_data)
     if retval == 0:
         dat.initialized = True
-        print(dat.ncount, ncount)
-        assert dat.ncount == ncount
+        dat.ncount = ncount
         return ncount, dat
     else:
         return -1, None  
