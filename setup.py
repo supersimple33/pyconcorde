@@ -104,6 +104,14 @@ def build_concorde():
                     lines[2452:2523] = ["    return 0;\n"]
                     with open(bcontrol_path, "w") as f:
                         f.writelines(lines)
+            branch_path = os.path.join("build", "concorde", "TSP", "branch.c")
+            if os.path.exists(branch_path):
+                with open(branch_path, "r") as f:
+                    lines = f.readlines()
+                if len(lines) >= 4030:
+                    lines[4030:4115] = ["    return 0;\n"]
+                    with open(branch_path, "w") as f:
+                        f.writelines(lines)
 
         cflags = "-fPIC -O3 -g -ansi"
 
