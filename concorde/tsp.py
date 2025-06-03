@@ -32,11 +32,11 @@ class TSPSolver(object):
         return self
 
     @classmethod
-    def from_upper_tri(cls, shape: int, edges: np.ndarray):
-        """Construct datagroup from given upper triangular matrix.
+    def from_lower_tri(cls, shape: int, edges: np.ndarray):
+        """Construct datagroup from given lower triangular matrix.
 
         The edges list must be a list of length shape*(shape-1)/2, and
-        represent the upper triangular part of the distance matrix.
+        represent the lower triangular part of the distance matrix.
         """
         if len(edges) != shape * (shape - 1) // 2:
             raise ValueError(
