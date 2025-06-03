@@ -92,6 +92,19 @@ def build_concorde():
         print("building concorde")
         _run("tar xzvf concorde.tgz", "build")
 
+        # Check for QuietConcorde environment variable
+        if os.environ.get("QuietConcorde") == "1":
+            # Patch build/concorde/TSP/bcontrol.c if requested
+            bcontrol_path = os.path.join("build", "concorde", "TSP", "bcontrol.c")
+            if os.path.exists(bcontrol_path):
+                with open(bcontrol_path, "r") as f:
+                    lines = f.readlines()
+                # Replace lines 2453 to 2458 (0-based: 2452 to 2457) with "return 0;\n"
+                if len(lines) >= 2458:
+                    lines[2452:2523] = ["    return 0;\n"]
+                    with open(bcontrol_path, "w") as f:
+                        f.writelines(lines)
+
         cflags = "-fPIC -O3 -g -ansi"
 
         if platform.system().startswith("Darwin"):
