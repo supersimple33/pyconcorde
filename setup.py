@@ -100,18 +100,31 @@ def build_concorde():
                 with open(bcontrol_path, "r") as f:
                     lines = f.readlines()
                 # Replace lines 2453 to 2458 (0-based: 2452 to 2457) with "return 0;\n"
-                if len(lines) >= 2458:
-                    lines[2452:2523] = ["    return 0;\n"]
-                    with open(bcontrol_path, "w") as f:
-                        f.writelines(lines)
+                lines[2452:2523] = ["    return 0;\n"]
+                # lines[1983]
+                with open(bcontrol_path, "w") as f:
+                    f.writelines(lines)
             branch_path = os.path.join("build", "concorde", "TSP", "branch.c")
             if os.path.exists(branch_path):
                 with open(branch_path, "r") as f:
                     lines = f.readlines()
-                if len(lines) >= 4030:
-                    lines[4030:4115] = ["    return 0;\n"]
-                    with open(branch_path, "w") as f:
-                        f.writelines(lines)
+                lines[4030:4115] = ["    return 0;\n"]
+                with open(branch_path, "w") as f:
+                    f.writelines(lines)
+            tsp_lp_path = os.path.join("build", "concorde", "TSP", "tsp_lp.c")
+            if os.path.exists(tsp_lp_path):
+                with open(tsp_lp_path, "r") as f:
+                    lines = f.readlines()
+                lines[3980:3991] = ["\n"]
+                with open(tsp_lp_path, "w") as f:
+                    f.writelines(lines)
+            tsp_call_path = os.path.join("build", "concorde", "TSP", "tsp_call.c")
+            if os.path.exists(tsp_call_path):
+                with open(tsp_call_path, "r") as f:
+                    lines = f.readlines()
+                lines[317:326] = ["\n"]
+                with open(tsp_call_path, "w") as f:
+                    f.writelines(lines)
 
         cflags = "-fPIC -O3 -g -ansi"
 
