@@ -118,10 +118,9 @@ def _CCutil_tri2dat(int ncount, int[::1] elen):
 
 def _CCtsp_solve_dat(
         int ncount, _CCdatagroup ingroup,
-        str name, double timebound, int silent, int seed=0):
-
+        str name, double timebound, int silent, int seed=0,
+        int[::1] in_tour=None):
     cdef:
-        int *in_tour = NULL
         double *in_val = NULL      # initial upper bound
         double opt_val = 0         # value of the optimal tour
         int success = 0            # set to 1 if the run finishes normally
@@ -129,6 +128,7 @@ def _CCtsp_solve_dat(
         double *_timebound = NULL  # NULL if no timebound, >= 0 otherwise
         int hit_timebound = 0
         int retval
+        int* in_tour_addr = NULL if in_tour is None else &in_tour[0]
 
         # Random state used by the solver
         CCrandstate rstate
@@ -145,7 +145,7 @@ def _CCtsp_solve_dat(
     if timebound > 0:
         _timebound = &timebound
 
-    retval = CCtsp_solve_dat(ncount, &ingroup.c_data, in_tour, &out_tour[0],
+    retval = CCtsp_solve_dat(ncount, &ingroup.c_data, in_tour_addr, &out_tour[0],
                              in_val, &opt_val, &success, &foundtour,
                              name.encode('utf-8'), _timebound, &hit_timebound,
                              silent, &rstate)

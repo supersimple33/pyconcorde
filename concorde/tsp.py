@@ -92,9 +92,27 @@ class TSPSolver(object):
         else:
             return "TSPSolver with {} nodes".format(self._ncount)
 
-    def solve(self, time_bound=-1, verbose=True, random_seed=0):
-        name = str(uuid.uuid4().hex)[0:9]
-        res = _CCtsp_solve_dat(
-            self._ncount, self._data, name, time_bound, not verbose, random_seed
-        )
+    def solve(
+        self, in_tour: np.ndarray = None, time_bound=-1, verbose=True, random_seed=0
+    ):
+        name = str(uuid.uuid4().hex)[:9]
+        if in_tour is not None:
+            res = _CCtsp_solve_dat(
+                self._ncount,
+                self._data,
+                name,
+                time_bound,
+                not verbose,
+                random_seed,
+                np.ascontiguousarray(in_tour),
+            )
+        else:
+            res = _CCtsp_solve_dat(
+                self._ncount,
+                self._data,
+                name,
+                time_bound,
+                not verbose,
+                random_seed,
+            )
         return ComputedTour(*res)
