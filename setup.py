@@ -126,10 +126,11 @@ def build_concorde():
             #     with open(tsp_call_path, "w") as f:
             #         f.writelines(lines)
 
-        cflags = "-fPIC -O3 -g -ansi"
+        cflags = "-fPIC -O3 -g"
 
         if platform.system().startswith("Darwin"):
             flags = "--host=darwin"
+            cflags += " -ansi"
         else:
             flags = "--host=linux"
 
