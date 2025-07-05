@@ -131,7 +131,7 @@ def build_concorde():
         if platform.system().startswith("Darwin"):
             flags = "--host=darwin"
         else:
-            flags = ""
+            flags = "--host=linux"
 
         datadir = os.path.abspath("data")
         cwd = f'CFLAGS="{cflags}" ./configure --prefix {datadir} --with-qsopt={datadir} {flags}'
