@@ -47,7 +47,7 @@ QSOPT_LOCATION = {
     },
 }
 
-CONCORDE_SRC = "https://www.dropbox.com/scl/fi/8vvrsznc4bu2hm70femqb/co031219.tgz?rlkey=5g7mi8d8l09vdatm61pkip5ei&st=t5dwvqj8&dl=1"  # noqa
+CONCORDE_SRC = "https://www.dropbox.com/scl/fi/xg7b1ffmfdv9peq61vaw3/co031219.tgz?rlkey=izduqnf0akru32z9ajsjyk7pn&st=8i1st370&dl=1"  # noqa
 
 
 def _safe_makedirs(*paths):
