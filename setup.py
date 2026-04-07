@@ -47,7 +47,7 @@ QSOPT_LOCATION = {
     },
 }
 
-CONCORDE_SRC = "https://www.math.uwaterloo.ca/tsp/concorde/downloads/codes/src/co031219.tgz"  # noqa
+CONCORDE_SRC = "https://www.dropbox.com/scl/fi/rfmevjdamivlm5seqlogd/co031219.tgz?rlkey=8xn6r2kap7nbv55no6f9tm7re&e=1&st=se421n3h&dl=1"  # noqa
 
 
 def _safe_makedirs(*paths):
